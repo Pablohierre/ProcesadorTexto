@@ -661,15 +661,17 @@ public class editor extends javax.swing.JFrame {
 /**
  * El BotonAbrirArchivo se encuentra dentro del menú Archivo
  * Si hay texto escrito que no está guardado en un archivo, se abre el dialogoGuardar, que avisa al usuario que está apunto de perder sus avances
- * Se comprueba si el texto está abierto comprobando si la EtiquetaNombreArchivo tiene algo dentro
- * En caso de que no haya nada guardado, abre el FileChooser
+ * Si el texto está guardado en un archivo pero ha sido modificado, también se abre el dialogoGuardar
+ * En caso de que no haya nada escrito, abre el FileChooser
  * Guardo el contenido del archivo original en la constante Buffer para, a la hora de crear un archivo nuevo vacío o abrir otro archivo existente, comprobar si se han hecho cambios.
  * De este modo sé si es necesario mostrar el diálogo de guardar para que el usuario no pierda sus cambios
  * @param evt 
  */
     private void BotonAbrirArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAbrirArchivoActionPerformed
 
-    if(AreaTexto.getText().length()>1&EtiquetaNombreArchivo.getText().length()==0){
+    if(AreaTexto.getText().length()>0&EtiquetaNombreArchivo.getText().length()==0){
+        dialogoGuardar.setVisible(true);
+    }else if(AreaTexto.getText().length()>0&EtiquetaNombreArchivo.getText().length()>0&buffer!=AreaTexto.getText()){
         dialogoGuardar.setVisible(true);
     }else{      
         int status = FileChooser.showOpenDialog(null);
@@ -763,14 +765,14 @@ public class editor extends javax.swing.JFrame {
  * @param evt 
  */
     private void BotonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonNuevoActionPerformed
-// 
-        System.out.println(buffer);
-        System.out.println(AreaTexto.getText());
-        if(buffer==AreaTexto.getText()){
-            System.out.println("Iguales");
-        }else{
-            System.out.println("diferentes");
-        }
+//
+//        System.out.println(buffer);
+//        System.out.println(AreaTexto.getText());
+//        if(buffer==AreaTexto.getText()){
+//            System.out.println("Iguales");
+//        }else{
+//            System.out.println("diferentes");
+//        }
         if(AreaTexto.getText().length()>0 & EtiquetaNombreArchivo.getText()==""){
             dialogoGuardar.setVisible(true);
             }else if(AreaTexto.getText().length()>0 & EtiquetaNombreArchivo.getText()!="" & AreaTexto.getText()!=buffer){
